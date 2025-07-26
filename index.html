@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presentación Interactiva: Mentor Hispano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- MODIFICACIÓN RESPONSIVE: Habilitado scroll vertical y ocultado horizontal --- */
+      body,
+      html {
+        font-family: "Inter", sans-serif;
+        height: 100%;
+        width: 100%;
+        overflow-y: auto; /* Permite scroll vertical */
+        overflow-x: hidden; /* Previene scroll horizontal */
+        background-color: #f0f4f8;
+      }
+      /* --- MODIFICACIÓN RESPONSIVE: En pantallas grandes, se oculta el scroll como en el diseño original --- */
+      @media (min-width: 1024px) {
+        body,
+        html {
+          overflow: hidden;
+        }
+      }
+
+      /* Estilos para la columna izquierda (branding) */
+      .left-column {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        color: white;
+      }
+
+      /* Sección superior de la primera columna con imagen de fondo */
+      .top-section {
+        background-image: url("cardImage.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        height: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Sección inferior de la primera columna con degradado y contenido */
+      .bottom-section {
+        background-image: linear-gradient(to bottom, #002f54, #002f54);
+        height: 60%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Estilos para los botones de navegación */
+      .nav-button {
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      .nav-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      }
+      .nav-button.active {
+        background-color: #1a56db;
+        color: white;
+        transform: scale(1.02);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Estilos para la ventana emergente de contenido */
+      #content-popup {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: 2rem;
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+        box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out,
+          visibility 0s 0.5s;
+        z-index: 20;
+        max-height: 70%;
+        overflow-y: auto;
+      }
+      #content-popup.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      }
+      nav {
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* --- MODIFICACIÓN RESPONSIVE: Popup se vuelve un modal de pantalla completa en móviles --- */
+      @media (max-width: 1023px) {
+        #content-popup {
+          position: fixed; /* Fijo a la ventana del navegador */
+          top: 0;
+          height: 100%;
+          max-height: 100%;
+          border-radius: 0; /* Sin bordes redondeados */
+          z-index: 50; /* Por encima de todo */
+        }
+        /* Ajuste para que las secciones de la primera columna no dependan de una altura fija */
+        .top-section,
+        .bottom-section {
+          height: auto;
+          min-height: 40vh; /* Mínima altura para que no colapse */
+        }
+      }
+
+      .content-panel {
+        animation: fadeInScale 0.6s ease-out forwards;
+        transform-origin: center;
+      }
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: 1.5rem auto 0;
+        height: 300px;
+      }
+
+      /* Custom scrollbar styles */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f0f4f8;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .carousel-container {
+        position: relative;
+        width: 100%;
+        /* max-width: 400px; */
+        height: 60%;
+        overflow: hidden;
+        /* border-radius: 1.5rem; */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1rem;
+        background-color: #002f54; /* Color de fondo para el contenedor del carrusel */
+      }
+
+      .carousel-images {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .carousel-images img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 1.5rem;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+      }
+
+      .carousel-images img.visible {
+        opacity: 1;
+      }
+
+      .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        color: #333;
+        border: none;
+        padding: 0.5rem 0.8rem;
+        cursor: pointer;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        transition: background-color 0.3s, color 0.3s;
+        z-index: 10;
+      }
+
+      .carousel-button:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #000;
+      }
+
+      .carousel-button.prev {
+        left: 1rem;
+      }
+
+      .carousel-button.next {
+        right: 1rem;
+      }
+
+      .bottom-logo-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #333;
+        margin-top: auto;
+        padding-top: 1rem;
+      }
+
+      .bottom-logo-section .logo-m {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0.5rem;
+        color: #1e3a8a;
+      }
+
+      .bottom-logo-section .mentor-hispano-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .bottom-logo-section .digital-solution-text {
+        font-size: 1.5rem;
+        color: #002f54;
+        font-weight: 700;
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .social-icon {
+        color: #1e3a8a;
+        font-size: 2rem;
+        transition: color 0.3s;
+      }
+
+      .social-icon:hover {
+        color: #3b82f6;
+      }
+
+      #additional-text-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background-color: rgba(59, 130, 246, 0.5);
+        color: white;
+        border-bottom-left-radius: 1.5rem;
+        border-bottom-right-radius: 1.5rem;
+        box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out,
+          visibility 0s 0.5s;
+        z-index: 15;
+        text-align: center;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        height: auto;
+        max-height: 45%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #additional-text-container.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      }
+      #toggle-text-button {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background-color: #3b82f6;
+        color: white;
+        border-radius: 9999px;
+        padding: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease-in-out;
+        cursor: pointer;
+        z-index: 16;
+      }
+      #toggle-text-button:hover {
+        background-color: #2563eb;
+      }
+      #toggle-text-button svg {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .rotation-message {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1e3a8a;
+        color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        font-size: 1.5rem;
+        z-index: 100;
+      }
+
+      .rotation-message svg {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+      }
+      @media screen and (max-width: 1023px) and (orientation: portrait) {
+        .rotation-message {
+          display: flex;
+        }
+        body > .flex {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="rotation-message">
+      <svg
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 11l-3 3-3-3"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 14V3"
+        ></path>
+      </svg>
+      <p>Por favor, gire su dispositivo para una mejor visualización.</p>
+      <p class="text-lg mt-2">
+        Este contenido está optimizado para la orientación horizontal.
+      </p>
+    </div>
+
+    <div class="flex flex-col lg:flex-row w-full h-auto lg:h-full">
+      <aside class="w-full lg:w-1/3 shadow-lg left-column">
+        <div class="top-section">
+          <img
+            src="logoMentorHispano.png"
+            alt="Logo Mentor Hispano"
+            class="absolute top-4 right-4 w-60 h-auto z-10 filter drop-shadow-md"
+          />
+          <div class="text-right p-6">
+            <h1 class="text-4xl font-extrabold tracking-tight leading-tight">
+              DESCUBRA
+            </h1>
+            <h1 class="text-4xl font-extrabold tracking-tight leading-tight">
+              MENTOR HISPANO
+            </h1>
+            <h1
+              class="text-2xl font-extrabold tracking-tight leading-tight mt-6"
+            >
+              REVOLUCIONANDO LA EDUCACIÓN
+            </h1>
+          </div>
+        </div>
+        <div class="bottom-section">
+          <p
+            class="mt-8 text-lg text-blue-100 opacity-90 leading-relaxed text-justify"
+          >
+            Mentor Hispano es una plataforma educativa de vanguardia diseñada
+            para la educación primaria y secundaria, que utiliza inteligencia
+            artificial para optimizar el proceso de enseñanza y aprendizaje. Es
+            donde cada estudiante encuentra su ruta de aprendizaje.
+          </p>
+        </div>
+      </aside>
+
+      <nav
+        class="w-full lg:w-1/3 p-8 flex flex-col justify-center space-y-6 shadow-md z-10 relative"
+        style="background-color: #daf7f1"
+      >
+        <button
+          class="nav-button w-full text-left p-5 rounded-xl font-semibold text-gray-800 bg-gray-50 hover:bg-blue-50"
+          data-target="content-tech"
+        >
+          <span class="text-blue-600 mr-4 text-2xl">⚡</span> TECNOLOGÍA
+          AVANZADA Y APRENDIZAJE PERSONALIZADO
+        </button>
+        <button
+          class="nav-button w-full text-left p-5 rounded-xl font-semibold text-gray-800 bg-gray-50 hover:bg-blue-50"
+          data-target="content-admin"
+        >
+          <span class="text-green-600 mr-4 text-2xl">📊</span> GESTIÓN EFICIENTE
+          PARA ADMINISTRADORES Y DOCENTES
+        </button>
+        <button
+          class="nav-button w-full text-left p-5 rounded-xl font-semibold text-gray-800 bg-gray-50 hover:bg-blue-50"
+          data-target="content-students"
+        >
+          <span class="text-purple-600 mr-4 text-2xl">🌟</span> BENEFICIOS PARA
+          PADRES Y ESTUDIANTES
+        </button>
+        <button
+          class="nav-button w-full text-left p-5 rounded-xl font-semibold text-gray-800 bg-gray-50 hover:bg-blue-50"
+          data-target="content-why"
+        >
+          <span class="text-orange-600 mr-4 text-2xl">❓</span> ¿POR QUÉ ELEGIR
+          MENTOR HISPANO?
+        </button>
+
+        <div class="mt-auto pt-8 text-center">
+          <span class="text-5xl mb-3 block text-blue-600">🎓</span>
+          <p class="text-lg font-bold text-gray-800">ÚNETE A MENTOR HISPANO</p>
+        </div>
+
+        <div id="content-popup" class="hidden">
+          <button
+            id="close-popup"
+            class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold leading-none z-50"
+          >
+            ×
+          </button>
+          <div id="popup-content-wrapper" class="w-full h-full">
+            <div id="content-tech" class="content-panel hidden text-center">
+              <h2 class="text-3xl font-bold text-[#1E3A8A] mb-5 leading-tight">
+                Aprendizaje Personalizado Impulsado por IA
+              </h2>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                Nuestra inteligencia artificial evalúa de manera inteligente el
+                estilo de aprendizaje único de cada estudiante para generar
+                lecciones y evaluaciones perfectamente adaptadas a sus
+                necesidades individuales.
+              </p>
+              <div class="chart-container">
+                <canvas id="aiFocusChart"></canvas>
+              </div>
+            </div>
+            <div id="content-admin" class="content-panel hidden text-center">
+              <h2 class="text-3xl font-bold text-[#1E3A8A] mb-5 leading-tight">
+                Optimización de la Gestión Educativa
+              </h2>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                Optimizamos drásticamente las tareas administrativas y
+                operativas, liberando tiempo valioso para que los educadores
+                puedan concentrarse plenamente en lo que mejor saben hacer:
+                enseñar.
+              </p>
+              <div class="chart-container">
+                <canvas id="adminTimeChart"></canvas>
+              </div>
+            </div>
+            <div id="content-students" class="content-panel hidden text-center">
+              <h2 class="text-3xl font-bold text-[#1E3A8A] mb-5 leading-tight">
+                Empoderando a Familias y Estudiantes
+              </h2>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                Fomentamos activamente la motivación intrínseca en los
+                estudiantes y fortalecemos el crucial puente de comunicación y
+                colaboración entre el hogar y la institución educativa.
+              </p>
+              <div class="chart-container">
+                <canvas id="studentEngagementChart"></canvas>
+              </div>
+            </div>
+            <div id="content-why" class="content-panel hidden text-center">
+              <h2 class="text-3xl font-bold text-[#1E3A8A] mb-8 leading-tight">
+                Nuestros Pilares Fundamentales
+              </h2>
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-lg mx-auto"
+              >
+                <div
+                  class="bg-blue-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                >
+                  <span class="text-5xl mb-3 block">🏆</span>
+                  <h3 class="text-xl font-bold text-[#1E3A8A] mt-2">
+                    Calidad Educativa
+                  </h3>
+                  <p class="text-gray-600 text-sm mt-1">
+                    Contenido y métodos de enseñanza superiores.
+                  </p>
+                </div>
+                <div
+                  class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                >
+                  <span class="text-5xl mb-3 block">⚙️</span>
+                  <h3 class="text-xl font-bold text-[#1E3A8A] mt-2">
+                    Optimización Total
+                  </h3>
+                  <p class="text-gray-600 text-sm mt-1">
+                    Eficiencia en procesos administrativos y de aprendizaje.
+                  </p>
+                </div>
+                <div
+                  class="bg-purple-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                >
+                  <span class="text-5xl mb-3 block">🧩</span>
+                  <h3 class="text-xl font-bold text-[#1E3A8A] mt-2">
+                    Adaptabilidad Única
+                  </h3>
+                  <p class="text-gray-600 text-sm mt-1">
+                    Plataforma que crece con tus necesidades.
+                  </p>
+                </div>
+                <div
+                  class="bg-orange-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                >
+                  <span class="text-5xl mb-3 block">💡</span>
+                  <h3 class="text-xl font-bold text-[#1E3A8A] mt-2">
+                    Innovación Constante
+                  </h3>
+                  <p class="text-gray-600 text-sm mt-1">
+                    Siempre a la vanguardia de la tecnología educativa.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main
+        class="w-full lg:w-1/3 bg-white flex flex-col items-center relative"
+      >
+        <div class="carousel-container p-10">
+          <div class="carousel-images" id="carousel-images">
+            <img src="foto1.png" alt="Imagen 1" />
+            <img src="foto2.png" alt="Imagen 2" />
+            <img src="foto3.png" alt="Imagen 3" />
+            <img src="foto4.png" alt="Imagen 4" />
+          </div>
+          <button class="carousel-button prev" id="carousel-prev">❮</button>
+          <button class="carousel-button next" id="carousel-next">❯</button>
+
+          <div
+            id="additional-text-container"
+            class="p-6 text-white shadow-lg text-center italic leading-relaxed"
+          >
+            <p>
+              Incorpore Mentor Hispano en su institución para ofrecer una
+              experiencia educacional de vanguardia y ser parte del futuro de la
+              educación.
+            </p>
+          </div>
+        </div>
+
+        <button
+          id="toggle-text-button"
+          class="mt-4 p-3 rounded-full text-white shadow-lg hover:bg-[#10b981] transition-colors duration-300 z-10"
+          style="background-color: #002f54"
+        >
+          <svg
+            class="w-6 h-6 transform rotate-0 transition-transform duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            ></path>
+          </svg>
+        </button>
+
+        <div class="bottom-logo-section p-8">
+          <img
+            src="logoMentorHispano2.png"
+            alt="Logo Mentor Hispano"
+            class="w-20 h-auto z-10 filter drop-shadow-md mb-8"
+          />
+          <div class="digital-solution-text">UNA SOLUCIÓN DIGITAL</div>
+          <div class="social-icons">
+            <a
+              href="https://www.mentorhispano.com/"
+              class="social-icon"
+              aria-label="Sitio web Mentor Hispano"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="web.svg"
+                alt="Pagina web"
+                class="w-10 h-auto z-10 filter drop-shadow-md"
+              />
+            </a>
+            <a
+              href="mailto:info@mentorhispano.com"
+              class="social-icon"
+              aria-label="Correo electrónico Mentor Hispano"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="email.svg"
+                alt="Correo electrónico"
+                class="w-10 h-auto z-10 filter drop-shadow-md"
+              />
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=XGp4OMedggU"
+              class="social-icon"
+              aria-label="YouTube Mentor Hispano"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="youtube.svg"
+                alt="YouTube"
+                class="w-10 h-auto z-10 filter drop-shadow-md"
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/mentor.hispano/"
+              class="social-icon"
+              aria-label="Instagram Mentor Hispano"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="instagram.svg"
+                alt="Instagram"
+                class="w-10 h-auto z-10 filter drop-shadow-md"
+              />
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // El código JavaScript no necesita modificaciones para este cambio de layout.
+      // Get references to navigation buttons and the popup window
+      const navButtons = document.querySelectorAll(".nav-button");
+      const contentPopup = document.getElementById("content-popup");
+      const closePopupButton = document.getElementById("close-popup");
+      const popupContentWrapper = document.getElementById(
+        "popup-content-wrapper"
+      );
+      let charts = {}; // Object to store Chart.js instances
+
+      // --- Carousel Logic (Fade Effect) ---
+      const carouselImagesContainer =
+        document.getElementById("carousel-images");
+      const carouselPrevButton = document.getElementById("carousel-prev");
+      const carouselNextButton = document.getElementById("carousel-next");
+      const images = carouselImagesContainer.querySelectorAll("img");
+      let currentIndex = 0;
+
+      function showImage(index) {
+        // Hide all images first
+        images.forEach((img) => img.classList.remove("visible"));
+
+        if (index >= images.length) {
+          currentIndex = 0;
+        } else if (index < 0) {
+          currentIndex = images.length - 1;
+        } else {
+          currentIndex = index;
+        }
+        // Show the current image
+        images[currentIndex].classList.add("visible");
+      }
+
+      carouselPrevButton.addEventListener("click", () => {
+        showImage(currentIndex - 1);
+      });
+
+      carouselNextButton.addEventListener("click", () => {
+        showImage(currentIndex + 1);
+      });
+
+      // Initialize carousel to show the first image
+      showImage(currentIndex);
+
+      // --- Logic for additional text in the third column ---
+      const toggleTextButton = document.getElementById("toggle-text-button");
+      const additionalTextContainer = document.getElementById(
+        "additional-text-container"
+      );
+      const toggleArrow = toggleTextButton.querySelector("svg");
+
+      // Initially, the text is hidden and the arrow points up
+      additionalTextContainer.classList.remove("active"); // Ensure it doesn't have the 'active' class initially
+      toggleArrow.style.transform = "rotate(0deg)";
+
+      toggleTextButton.addEventListener("click", () => {
+        if (additionalTextContainer.classList.contains("active")) {
+          // If active, hide it
+          additionalTextContainer.classList.remove("active");
+          toggleArrow.style.transform = "rotate(0deg)"; // Arrow up
+        } else {
+          // If not active, show it
+          additionalTextContainer.classList.add("active");
+          toggleArrow.style.transform = "rotate(180deg)"; // Arrow down
+        }
+      });
+
+      // Function to initialize or re-initialize a Chart.js chart
+      function initializeChart(id, config) {
+        if (charts[id]) {
+          charts[id].destroy(); // Destroy existing chart before creating a new one
+        }
+        const ctx = document.getElementById(id);
+        if (ctx) {
+          // Ensure canvas element exists before trying to get its context
+          charts[id] = new Chart(ctx.getContext("2d"), config);
+        }
+      }
+
+      // Custom tooltip callback for Chart.js to display titles and labels clearly
+      const tooltipTitleCallback = {
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: function (tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                return Array.isArray(label) ? label.join(" ") : label; // Handle multi-line labels
+              },
+              label: function (context) {
+                let label = context.dataset.label || "";
+                if (label) {
+                  label += ": ";
+                }
+                if (context.parsed.y !== null) {
+                  label += context.parsed.y + "%"; // For bar and line charts
+                } else if (context.parsed) {
+                  label += context.parsed + "%"; // For doughnut chart
+                }
+                return label;
+              },
+            },
+            backgroundColor: "rgba(0, 0, 0, 0.7)", // Darker tooltip background
+            titleFont: { size: 16, weight: "bold" }, // Larger, bolder title font
+            bodyFont: { size: 14 }, // Larger body font
+            padding: 10, // More padding
+            cornerRadius: 8, // Rounded corners for tooltips
+          },
+        },
+      };
+
+      // Configuration objects for each Chart.js chart
+      const chartConfigs = {
+        aiFocusChart: {
+          type: "doughnut",
+          data: {
+            labels: [
+              "Lecciones Personalizadas",
+              "Evaluaciones Adaptativas",
+              "Desarrollo de Habilidades",
+            ],
+            datasets: [
+              {
+                data: [50, 30, 20],
+                backgroundColor: ["#1E3A8A", "#3B82F6", "#10B981"], // Custom colors
+                borderColor: "#ffffff", // White border
+                borderWidth: 5, // Thicker border
+                hoverOffset: 12,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              tooltip: tooltipTitleCallback.plugins.tooltip, // Apply custom tooltip
+              legend: {
+                position: "bottom", // Legend at the bottom
+                labels: {
+                  font: { size: 14, family: "Inter" }, // Custom font for legend labels
+                  color: "#333", // Darker color for legend labels
+                },
+              },
+            },
+            cutout: "70%" /* Thicker doughnut */,
+            animation: {
+              animateRotate: true,
+              animateScale: true,
+            },
+          },
+        },
+        adminTimeChart: {
+          type: "bar",
+          data: {
+            labels: ["Tiempo en Tareas Administrativas"],
+            datasets: [
+              {
+                label: "Sin Mentor Hispano",
+                data: [100],
+                backgroundColor: "#3B82F6",
+                borderRadius: 10,
+                barThickness: 50,
+              },
+              {
+                label: "Con Mentor Hispano",
+                data: [40] /* Reduced administrative time to show impact */,
+                backgroundColor: "#F59E0B",
+                borderRadius: 10,
+                barThickness: 50,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  callback: (v) => v + "%",
+                  font: { size: 12, family: "Inter" },
+                  color: "#555",
+                },
+                grid: { display: false },
+              },
+              x: {
+                ticks: { display: false },
+                grid: { display: false },
+              },
+            },
+            plugins: {
+              tooltip: tooltipTitleCallback.plugins.tooltip,
+              legend: {
+                position: "bottom",
+                labels: {
+                  font: { size: 14, family: "Inter" },
+                  color: "#333",
+                },
+              },
+            },
+            animation: {
+              duration: 1200,
+              easing: "easeOutQuart",
+            },
+          },
+        },
+        studentEngagementChart: {
+          type: "line",
+          data: {
+            labels: ["Inicio", "Mes 1", "Mes 2", "Mes 3", "Mes 4", "Final"],
+            datasets: [
+              {
+                label: "Nivel de Participación del Estudiante",
+                data: [
+                  50, 60, 75, 85, 90, 98,
+                ] /* Improved engagement data for a more positive trend */,
+                fill: true,
+                backgroundColor: "rgba(16, 185, 129, 0.25)",
+                borderColor: "#10B981",
+                borderWidth: 3,
+                tension: 0.4,
+                pointBackgroundColor: "#10B981",
+                pointBorderColor: "#fff",
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  callback: (v) => v + "%",
+                  font: { size: 12, family: "Inter" },
+                  color: "#555",
+                },
+                grid: { color: "#e0e0e0" },
+              },
+              x: {
+                ticks: {
+                  font: { size: 12, family: "Inter" },
+                  color: "#555",
+                },
+                grid: { display: false },
+              },
+            },
+            plugins: {
+              tooltip: tooltipTitleCallback.plugins.tooltip,
+              legend: { display: false },
+            },
+            animation: {
+              duration: 1500,
+              easing: "easeOutBounce",
+            },
+          },
+        },
+      };
+
+      // --- Navigation Logic ---
+      navButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.dataset.target;
+          const targetPanel = document.getElementById(targetId);
+
+          // Deactivate all buttons
+          navButtons.forEach((btn) => btn.classList.remove("active"));
+          // Activate the clicked button
+          button.classList.add("active");
+
+          // Hide all content panels inside the popup
+          Array.from(popupContentWrapper.children).forEach((panel) => {
+            panel.classList.add("hidden");
+            panel.classList.remove("fadeInScale"); // Reset animation
+          });
+
+          if (targetPanel) {
+            // Show the target content panel inside the popup
+            targetPanel.classList.remove("hidden");
+            void targetPanel.offsetWidth; // Force reflow to restart animation
+            targetPanel.classList.add("fadeInScale");
+
+            // Open the popup
+            contentPopup.classList.remove("hidden");
+            void contentPopup.offsetWidth; // Force reflow to restart popup animation
+            contentPopup.classList.add("open");
+
+            // Initialize or re-initialize chart if the panel contains one
+            const chartId = Object.keys(chartConfigs).find((key) =>
+              targetId.includes(key.replace("Chart", ""))
+            );
+            if (chartId) {
+              initializeChart(chartId, chartConfigs[chartId]);
+            }
+          }
+        });
+      });
+
+      // Function to close the popup window
+      function closePopup() {
+        contentPopup.classList.remove("open");
+        // Hide the popup completely after the animation finishes
+        setTimeout(() => {
+          contentPopup.classList.add("hidden");
+          // Hide all content panels inside the popup after closing
+          Array.from(popupContentWrapper.children).forEach((panel) => {
+            panel.classList.add("hidden");
+          });
+          // Deactivate all navigation buttons when the popup closes
+          navButtons.forEach((btn) => btn.classList.remove("active"));
+        }, 500); // Matches the popup transition duration
+      }
+
+      // Logic to close the popup with the 'x' button
+      closePopupButton.addEventListener("click", closePopup);
+
+      // Logic to close the popup when clicking outside of it
+      document.addEventListener("click", (event) => {
+        // Check if the popup is currently open
+        if (contentPopup.classList.contains("open")) {
+          // Check if the click was NOT inside the popup AND NOT on a navigation button
+          const isClickInsidePopup = contentPopup.contains(event.target);
+          const isClickOnNavButton = Array.from(navButtons).some((button) =>
+            button.contains(event.target)
+          );
+
+          if (!isClickInsidePopup && !isClickOnNavButton) {
+            closePopup();
+          }
+        }
+      });
+
+      // Set the first button as active when the DOM is fully loaded (without opening the popup initially)
+      document.addEventListener("DOMContentLoaded", () => {
+        // We don't initialize the chart here, it will be initialized when the button is clicked
+        // document.querySelector('.nav-button').classList.add('active'); // Don't activate any by default so the popup doesn't appear on load
+      });
+
+      // Optional: Re-initialize charts on window resize to ensure responsiveness
+      window.addEventListener("resize", () => {
+        for (const id in charts) {
+          if (charts[id]) {
+            charts[id].destroy();
+            const config = chartConfigs[id];
+            if (config) {
+              initializeChart(id, config);
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
