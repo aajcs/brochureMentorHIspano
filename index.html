@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=1200, user-scalable=no" />
     <title>Presentación Interactiva: Mentor Hispano</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -47,210 +47,338 @@
         Este contenido está optimizado para la orientación horizontal.
       </p>
     </div>
-    <div class="flex flex-col lg:flex-row w-full h-auto lg:h-full ">
-      <aside class="w-full lg:w-1/3 shadow-lg left-column flex flex-col justify-between">
-      <div class="top-section">
-          <img
-            src="assets/images/logoMentorHispano.png"
-
-            alt="Logo Mentor Hispano"
-            class="absolute top-4 right-4 w-60 h-auto z-10 filter drop-shadow-md"
-          />
-          <div class="text-right p-6">
-            <h1 class="text-5xl font-semibold tracking-tight leading-tight">
-              DESCUBRA
-            </h1>
-            <h1 class="text-5xl font-semibold tracking-tight leading-tight">
-              MENTOR HISPANO
-            </h1>
-            <h1
-              class="text-2xl font-semibold tracking-tight leading-tight mt-6"
+    <div class="wrapper">
+      <div class="containerMio">
+        <div class="column">
+          <aside class="left-column">
+            <div class="top-section">
+              <img
+                src="assets/images/logoMentorHispano.png"
+                alt="Logo Mentor Hispano"
+                class="absolute top-4 right-4 w-60 h-auto z-10 filter drop-shadow-md"
+              />
+              <div class="text-right p-6">
+                <h1
+                  class="top-section-text font-semibold tracking-tight leading-tight"
+                >
+                  DESCUBRA
+                </h1>
+                <h1
+                  class="top-section-text font-semibold tracking-tight leading-tight"
+                >
+                  MENTOR HISPANO
+                </h1>
+                <h1
+                  class="top-section-text2 font-semibold tracking-tight leading-tight mt-6"
+                >
+                  REVOLUCIONANDO LA EDUCACIÓN
+                </h1>
+              </div>
+            </div>
+            <div
+              class="bottom-section flex flex-col justify-center items-center text-center"
+              style="height: 40%"
             >
-              REVOLUCIONANDO LA EDUCACIÓN
-            </h1>
-          </div>
+              <p
+                class="mt-8 text-blue-100 opacity-90 leading-relaxed text-justify"
+              >
+                Mentor Hispano es una plataforma educativa de vanguardia
+                diseñada para la educación primaria y secundaria, que utiliza
+                inteligencia artificial para optimizar el proceso de enseñanza y
+                aprendizaje. Es donde cada estudiante encuentra su ruta de
+                aprendizaje.
+              </p>
+            </div>
+          </aside>
         </div>
-        <div class="bottom-section flex flex-col justify-center items-center text-center" style="height: 40%;">
-          <p class="mt-8 text-lg text-blue-100 opacity-90 leading-relaxed text-justify">
-            Mentor Hispano es una plataforma educativa de vanguardia diseñada para la educación primaria y secundaria, que utiliza inteligencia artificial para optimizar el proceso de enseñanza y aprendizaje. Es donde cada estudiante encuentra su ruta de aprendizaje.
-          </p>
+        <div class="column">
+          <nav
+            class="w-full h-full nav-central shadow-md z-10 relative flex flex-col items-center"
+          >
+            <button class="nav-central-btn" data-target="content-tech">
+              <span class="nav-central-icon">
+                <img src="assets/icons/icon-tech.svg" alt="Tecnología" />
+              </span>
+              <span class="nav-central-text">
+                Tecnología avanzada y<br />aprendizaje personalizado
+              </span>
+            </button>
+            <button class="nav-central-btn" data-target="content-admin">
+              <span class="nav-central-icon">
+                <img src="assets/icons/icon-star.svg" alt="Gestión" />
+              </span>
+              <span class="nav-central-text">
+                Gestión eficiente para<br />administradores y docentes
+              </span>
+            </button>
+            <button class="nav-central-btn" data-target="content-students">
+              <span class="nav-central-icon">
+                <img src="assets/icons/icon-check.svg" alt="Beneficios" />
+              </span>
+              <span class="nav-central-text">
+                Beneficios para padres y<br />estudiantes
+              </span>
+            </button>
+            <button class="nav-central-btn" data-target="content-why">
+              <span class="nav-central-icon">
+                <img src="assets/icons/icon-question.svg" alt="Por qué" />
+              </span>
+              <span class="nav-central-text">
+                ¿Por qué elegir<br />Mentor Hispano?
+              </span>
+            </button>
+            <div class="nav-central-bottom mb-4">
+              <img
+                src="assets/icons/mochila.svg"
+                alt="School Bag Icon"
+                class="w-16 h-16 mb-3 mx-auto"
+              />
+              <p class="text-2xl font-bold">ÚNETE A MENTOR HISPANO</p>
+            </div>
+          </nav>
         </div>
-      </aside>
-      <nav class="w-full lg:w-1/3 nav-central shadow-md z-10 relative flex flex-col items-center ">
-        <button class="nav-central-btn" data-target="content-tech">
-          <span class="nav-central-icon">
-        <img src="assets/icons/icon-tech.svg" alt="Tecnología" />
-          </span>
-          <span class="nav-central-text ">
-        Tecnología avanzada y<br>aprendizaje personalizado
-          </span>
-        </button>
-        <button class="nav-central-btn" data-target="content-admin">
-          <span class="nav-central-icon">
-        <img src="assets/icons/icon-star.svg" alt="Gestión" />
-          </span>
-          <span class="nav-central-text">
-        Gestión eficiente para<br>administradores y docentes
-          </span>
-        </button>
-        <button class="nav-central-btn" data-target="content-students">
-          <span class="nav-central-icon">
-        <img src="assets/icons/icon-check.svg" alt="Beneficios" />
-          </span>
-          <span class="nav-central-text">
-        Beneficios para padres y<br>estudiantes
-          </span>
-        </button>
-        <button class="nav-central-btn" data-target="content-why">
-          <span class="nav-central-icon">
-        <img src="assets/icons/icon-question.svg" alt="Por qué" />
-          </span>
-          <span class="nav-central-text">
-        ¿Por qué elegir<br>Mentor Hispano?
-          </span>
-        </button>
-        <div class="nav-central-bottom mb-4">
-        <img src="assets/icons/mochila.svg" alt="School Bag Icon" class="w-16 h-16 mb-3 mx-auto" />
-          <p class="text-2xl font-bold">ÚNETE A MENTOR HISPANO</p>
+        <div class="column">
+          <main
+            class="w-full h-full bg-white flex flex-col items-center relative"
+          >
+            <div
+              class="carousel-container p-10 flex flex-col items-center justify-center"
+              style="background-color: #002f54"
+            >
+              <div class="carousel-images" id="carousel-images">
+                <img src="assets/images/foto1.png" alt="Imagen 1" />
+                <img src="assets/images/foto2.png" alt="Imagen 2" />
+                <img src="assets/images/foto3.png" alt="Imagen 3" />
+                <img src="assets/images/foto4.png" alt="Imagen 4" />
+              </div>
+              <button class="carousel-button prev" id="carousel-prev">❮</button>
+              <button class="carousel-button next" id="carousel-next">❯</button>
+              <div
+                id="additional-text-container"
+                class="p-6 text-white shadow-lg text-center italic leading-relaxed"
+              >
+                <p>
+                  Incorpore Mentor Hispano en su institución para ofrecer una
+                  experiencia educacional de vanguardia y ser parte del futuro
+                  de la educación.
+                </p>
+              </div>
+              <button
+                id="toggle-text-button"
+                class="mt-4 shadow-lg hover:bg-[#10b981] transition-colors duration-300 z-10 flex items-center justify-center"
+                style="
+                  background-color: #eafafc;
+                  position: absolute;
+                  bottom: -30px;
+                  width: 88px;
+                  height: 32px;
+                  border-radius: 9999px;
+                  padding: 0;
+                "
+              >
+                <svg
+                  class="w-6 h-6 transform rotate-0 transition-transform duration-300"
+                  fill="none"
+                  stroke="#002f54"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="bottom-logo-section">
+              <img
+                src="assets/images/logoMentorHispano2.png"
+                alt="Logo Mentor Hispano"
+                class="w-20 h-auto z-10 filter drop-shadow-md"
+              />
+              <div class="digital-solution-text">UNA SOLUCIÓN DIGITAL</div>
+              <div class="social-icons">
+                <a
+                  href="https://www.mentorhispano.com/"
+                  class="social-icon"
+                  aria-label="Sitio web Mentor Hispano"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/icons/web.svg"
+                    alt="Pagina web"
+                    class="w-10 h-auto z-10 filter drop-shadow-md"
+                  />
+                </a>
+                <a
+                  href="mailto:info@mentorhispano.com"
+                  class="social-icon"
+                  aria-label="Correo electrónico Mentor Hispano"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/icons/email.svg"
+                    alt="Correo electrónico"
+                    class="w-10 h-auto z-10 filter drop-shadow-md"
+                  />
+                </a>
+                <a
+                  href="https://www.youtube.com/watch?v=XGp4OMedggU"
+                  class="social-icon"
+                  aria-label="YouTube Mentor Hispano"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/icons/youtube.svg"
+                    alt="YouTube"
+                    class="w-10 h-auto z-10 filter drop-shadow-md"
+                  />
+                </a>
+                <a
+                  href="https://www.instagram.com/mentor.hispano/"
+                  class="social-icon"
+                  aria-label="Instagram Mentor Hispano"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/icons/instagram.svg"
+                    alt="Instagram"
+                    class="w-10 h-auto z-10 filter drop-shadow-md"
+                  />
+                </a>
+              </div>
+            </div>
+          </main>
         </div>
-      </nav>
-      </nav>
-      <main class="w-full lg:w-1/3 bg-white flex flex-col items-center relative">
-        <div class="carousel-container p-10 flex flex-col items-center justify-center" style="background-color: #002f54; ">
-          <div class="carousel-images" id="carousel-images">
-            <img src="assets/images/foto1.png" alt="Imagen 1" />
-            <img src="assets/images/foto2.png" alt="Imagen 2" />
-            <img src="assets/images/foto3.png" alt="Imagen 3" />
-            <img src="assets/images/foto4.png" alt="Imagen 4" />
-          </div>
-          <button class="carousel-button prev" id="carousel-prev">❮</button>
-          <button class="carousel-button next" id="carousel-next">❯</button>
-          <div id="additional-text-container" class="p-6 text-white shadow-lg text-center italic leading-relaxed">
-            <p>
-              Incorpore Mentor Hispano en su institución para ofrecer una experiencia educacional de vanguardia y ser parte del futuro de la educación.
-            </p>
-          </div>
-<button id="toggle-text-button" class="mt-4 shadow-lg hover:bg-[#10b981] transition-colors duration-300 z-10 flex items-center justify-center" style="background-color: #eafafc; position: absolute; bottom: -30px; width: 88px; height: 32px; border-radius: 9999px; padding: 0;">
-          <svg class="w-6 h-6 transform rotate-0 transition-transform duration-300" fill="none" stroke="#002f54" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-          </svg>
-        </button> 
       </div>
-       
-        <div class="bottom-logo-section p-8">
-          <img src="assets/images/logoMentorHispano2.png" alt="Logo Mentor Hispano" class="w-20 h-auto z-10 filter drop-shadow-md mb-8" />
-          <div class="digital-solution-text">UNA SOLUCIÓN DIGITAL</div>
-          <div class="social-icons">
-            <a href="https://www.mentorhispano.com/" class="social-icon" aria-label="Sitio web Mentor Hispano" target="_blank" rel="noopener">
-              <img src="assets/icons/web.svg" alt="Pagina web" class="w-10 h-auto z-10 filter drop-shadow-md" />
-            </a>
-            <a href="mailto:info@mentorhispano.com" class="social-icon" aria-label="Correo electrónico Mentor Hispano" target="_blank" rel="noopener">
-              <img src="assets/icons/email.svg" alt="Correo electrónico" class="w-10 h-auto z-10 filter drop-shadow-md" />
-            </a>
-            <a href="https://www.youtube.com/watch?v=XGp4OMedggU" class="social-icon" aria-label="YouTube Mentor Hispano" target="_blank" rel="noopener">
-              <img src="assets/icons/youtube.svg" alt="YouTube" class="w-10 h-auto z-10 filter drop-shadow-md" />
-            </a>
-            <a href="https://www.instagram.com/mentor.hispano/" class="social-icon" aria-label="Instagram Mentor Hispano" target="_blank" rel="noopener">
-              <img src="assets/icons/instagram.svg" alt="Instagram" class="w-10 h-auto z-10 filter drop-shadow-md" />
-            </a>
-          </div>
-        </div>
-      </main>
     </div>
+
     <!-- Overlay y popup central -->
     <div id="popup-overlay"></div>
     <div id="content-popup" class="slide-up">
       <button id="close-popup">×</button>
       <div id="popup-content-wrapper">
-      <div id="content-tech" class="content-panel hidden text-justify">
-      <h2 class="text-4xl font-bold mb-5 leading-tight text-center">
-      Aprendizaje Personalizado Impulsado por IA
-      </h2>
-      <p class="text-xl leading-relaxed">
-      Nuestra inteligencia artificial evalúa de manera inteligente el
-      estilo de aprendizaje único de cada estudiante para generar
-      lecciones y evaluaciones perfectamente adaptadas a sus
-      necesidades individuales.
-      </p>
-      <div class="chart-container">
-      <canvas id="aiFocusChart"></canvas>
-      </div>
-      </div>
-      <div id="content-admin" class="content-panel hidden text-center">
-      <h2 class="text-4xl font-bold mb-5 leading-tight">
-      Optimización de la Gestión Educativa
-      </h2>
-      <p class="text-xl leading-relaxed">
-      Optimizamos drásticamente las tareas administrativas y
-      operativas, liberando tiempo valioso para que los educadores
-      puedan concentrarse plenamente en lo que mejor saben hacer:
-      enseñar.
-      </p>
-      <div class="chart-container">
-      <canvas id="adminTimeChart"></canvas>
-      </div>
-      </div>
-      <div id="content-students" class="content-panel hidden text-center">
-      <h2 class="text-4xl font-bold mb-5 leading-tight">
-      Empoderando a Familias y Estudiantes
-      </h2>
-      <p class="text-xl leading-relaxed">
-      Fomentamos activamente la motivación intrínseca en los
-      estudiantes y fortalecemos el crucial puente de comunicación y
-      colaboración entre el hogar y la institución educativa.
-      </p>
-      <div class="chart-container">
-      <canvas id="studentEngagementChart"></canvas>
-      </div>
-      </div>
-      <div id="content-why" class="content-panel hidden text-center">
-      <h2 class="text-4xl font-bold mb-8 leading-tight text-white">
-      Nuestros Pilares Fundamentales
-      </h2>
-      <div class="text-left text-white text-lg max-w-lg mx-auto">
-        <p><strong>Calidad Educativa:</strong> Contenido y métodos de enseñanza superiores.</p>
-        <p><strong>Optimización Total:</strong> Eficiencia en procesos administrativos y de aprendizaje.</p>
-        <p><strong>Adaptabilidad Única:</strong> Plataforma que crece con tus necesidades.</p>
-        <p><strong>Innovación Constante:</strong> Siempre a la vanguardia de la tecnología educativa.</p>
-      </div>
-      </div>
-      </div>
+        <div id="content-tech" class="content-panel hidden text-justify">
+          <h2 class="text-4xl font-bold mb-5 leading-tight text-center">
+            Aprendizaje Personalizado Impulsado por IA
+          </h2>
+          <p class="text-xl leading-relaxed">
+            Nuestra inteligencia artificial evalúa de manera inteligente el
+            estilo de aprendizaje único de cada estudiante para generar
+            lecciones y evaluaciones perfectamente adaptadas a sus necesidades
+            individuales.
+          </p>
+          <div class="chart-container">
+            <canvas id="aiFocusChart"></canvas>
+          </div>
         </div>
-        <style>
+        <div id="content-admin" class="content-panel hidden text-center">
+          <h2 class="text-4xl font-bold mb-5 leading-tight">
+            Optimización de la Gestión Educativa
+          </h2>
+          <p class="text-xl leading-relaxed">
+            Optimizamos drásticamente las tareas administrativas y operativas,
+            liberando tiempo valioso para que los educadores puedan concentrarse
+            plenamente en lo que mejor saben hacer: enseñar.
+          </p>
+          <div class="chart-container">
+            <canvas id="adminTimeChart"></canvas>
+          </div>
+        </div>
+        <div id="content-students" class="content-panel hidden text-center">
+          <h2 class="text-4xl font-bold mb-5 leading-tight">
+            Empoderando a Familias y Estudiantes
+          </h2>
+          <p class="text-xl leading-relaxed">
+            Fomentamos activamente la motivación intrínseca en los estudiantes y
+            fortalecemos el crucial puente de comunicación y colaboración entre
+            el hogar y la institución educativa.
+          </p>
+          <div class="chart-container">
+            <canvas id="studentEngagementChart"></canvas>
+          </div>
+        </div>
+        <div id="content-why" class="content-panel hidden text-center">
+          <h2 class="text-4xl font-bold mb-8 leading-tight text-white">
+            Nuestros Pilares Fundamentales
+          </h2>
+          <div class="text-left text-white text-lg max-w-lg mx-auto">
+            <p>
+              <strong>Calidad Educativa:</strong> Contenido y métodos de
+              enseñanza superiores.
+            </p>
+            <p>
+              <strong>Optimización Total:</strong> Eficiencia en procesos
+              administrativos y de aprendizaje.
+            </p>
+            <p>
+              <strong>Adaptabilidad Única:</strong> Plataforma que crece con tus
+              necesidades.
+            </p>
+            <p>
+              <strong>Innovación Constante:</strong> Siempre a la vanguardia de
+              la tecnología educativa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
       #content-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #002f54;
-      color: #fff;
-      border-radius: 1.2rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-      z-index: 101;
-      min-width: 340px;
-      max-width: 90vw;
-      width: 600px;
-      padding: 2rem 2rem 1.5rem 2rem;
-      display: none;
-      animation: fadeInUp 0.5s ease-out;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #002f54;
+        color: #fff;
+        border-radius: 1.2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        z-index: 101;
+        min-width: 340px;
+        max-width: 90vw;
+        width: 600px;
+        padding: 2rem 2rem 1.5rem 2rem;
+        display: none;
+        animation: fadeInUp 0.5s ease-out;
       }
       #content-popup.open {
-      display: block;
+        display: block;
       }
       @keyframes fadeInUp {
-      from {
-      opacity: 0;
-      transform: translate(-50%, 10%);
+        from {
+          opacity: 0;
+          transform: translate(-50%, 10%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
       }
-      to {
-      opacity: 1;
-      transform: translate(-50%, -50%);
-      }
-      }
-   
-   
     </style>
     <!-- JS personalizado -->
     <script src="assets/js/main.js"></script>
+    <script>
+      // Escalado proporcional del contenedor principal
+      function scaleMainContainer() {
+        const baseWidth = 1200;
+        const baseHeight = 800;
+        const container = document.getElementById("main-fixed-container");
+        if (!container) return;
+        const scaleX = window.innerWidth / baseWidth;
+        const scaleY = window.innerHeight / baseHeight;
+        const scale = Math.min(scaleX, scaleY, 1);
+        container.style.transform = `scale(${scale})`;
+        container.style.transformOrigin = "top center";
+      }
+      window.addEventListener("resize", scaleMainContainer);
+      window.addEventListener("DOMContentLoaded", scaleMainContainer);
+    </script>
   </body>
 </html>

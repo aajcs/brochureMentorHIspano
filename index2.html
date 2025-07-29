@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bandera de Tres Columnas</title>
+    <style>
+      /* --- Estilos Generales --- */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #222; /* Opcional: bandas negras */
+      }
+      .wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        display: flex;
+        aspect-ratio: 3/1; /* Siempre horizontal */
+        width: 100vw;
+        max-width: 100vw;
+        max-height: 100vh;
+        height: auto;
+        box-shadow: 0 0 24px #0002;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        background: #fff;
+      }
+      /* --- Estilo para cada Columna --- */
+      .column {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .scalable-text {
+        display: block;
+        text-align: center;
+      }
+
+      /* --- Colores de Fondo para cada Columna --- */
+      .yellow {
+        background-color: #ffcd00; /* Amarillo */
+      }
+
+      .blue {
+        background-color: #0038a8; /* Azul */
+      }
+
+      .red {
+        background-color: #ce1126; /* Rojo */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <div class="column yellow">
+          <span
+            class="scalable-text"
+            style="
+              font-size: clamp(1.5rem, 5vw, 4rem);
+              font-weight: bold;
+              color: #222;
+              display: block;
+              text-align: center;
+            "
+            >Columna Amarilla</span
+          >
+        </div>
+        <div class="column blue">
+          <span
+            class="scalable-text"
+            style="
+              font-size: clamp(1.2rem, 4vw, 3rem);
+              font-weight: 600;
+              color: #fff;
+              display: block;
+              text-align: center;
+            "
+            >Columna Azul</span
+          >
+        </div>
+        <div class="column red">
+          <span
+            class="scalable-text"
+            style="
+              font-size: clamp(1rem, 3vw, 2.5rem);
+              font-weight: 400;
+              color: #fff;
+              display: block;
+              text-align: center;
+            "
+            >Columna Roja</span
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
