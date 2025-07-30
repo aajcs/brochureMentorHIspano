@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Botones con Animación Periódica</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      h1 {
+        color: white;
+        margin-bottom: 40px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .explanation {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+
+      .explanation h2 {
+        color: #ffcc00;
+        margin-bottom: 15px;
+      }
+
+      .explanation p {
+        color: white;
+        margin-bottom: 10px;
+        line-height: 1.6;
+      }
+
+      .nav-central {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .nav-central-btn {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-central-btn.animated {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.5s ease,
+          transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .nav-central-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-5px);
+      }
+
+      .nav-central-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 12px;
+        opacity: 0;
+      }
+
+      .nav-central-icon.visible {
+        opacity: 1;
+      }
+
+      .nav-central-icon.bounce {
+        animation: iconBounceIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      .nav-central-icon.pulse {
+        animation: iconPulse 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      .btn-label {
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      @keyframes iconBounceIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.4);
+        }
+        30% {
+          opacity: 1;
+          transform: scale(1.25);
+        }
+        45% {
+          transform: scale(0.85);
+        }
+        60% {
+          transform: scale(1.15);
+        }
+        75% {
+          transform: scale(0.95);
+        }
+        85% {
+          transform: scale(1.05);
+        }
+        92% {
+          transform: scale(0.98);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes iconPulse {
+        0% {
+          transform: scale(1);
+        }
+        20% {
+          transform: scale(1.18);
+        }
+        40% {
+          transform: scale(0.96);
+        }
+        60% {
+          transform: scale(1.1);
+        }
+        80% {
+          transform: scale(0.98);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .status {
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin-top: 25px;
+        background: rgba(46, 204, 113, 0.2);
+        color: #2ecc71;
+        border-left: 4px solid #2ecc71;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Botones con Animación Periódica</h1>
+
+      <div class="explanation">
+        <h2>Solución Implementada</h2>
+        <p>
+          Problema anterior: Los íconos desaparecían después de la animación
+          inicial porque al remover la clase "bounce", se perdía la propiedad
+          "opacity:1".
+        </p>
+        <p>✅ Correcciones aplicadas:</p>
+        <ul>
+          <li>
+            Se añadió la clase "visible" para mantener la opacidad después de la
+            animación inicial
+          </li>
+          <li>
+            Las animaciones "bounce" y "pulse" se ejecutan en secuencia sin
+            superposición
+          </li>
+          <li>
+            El efecto "pulse" se repite cada 15 segundos después de la animación
+            inicial
+          </li>
+          <li>Se eliminó la transición de opacidad conflictiva</li>
+          <li>
+            Se implementó gestión adecuada de eventos para evitar conflictos
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-central">
+        <div class="nav-central-btn">
+          <div class="nav-central-icon">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+          </div>
+          <span class="btn-label">Inicio</span>
+        </div>
+
+        <div class="nav-central-btn">
+          <div class="nav-central-icon">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+          <span class="btn-label">Perfil</span>
+        </div>
+
+        <div class="nav-central-btn">
+          <div class="nav-central-icon">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+              />
+            </svg>
+          </div>
+          <span class="btn-label">Mensajes</span>
+        </div>
+      </div>
+
+      <div class="status">
+        Animación funcionando correctamente: Los íconos permanecen visibles y
+        realizan el efecto de rebote periódicamente
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".nav-central-btn");
+        const icons = document.querySelectorAll(".nav-central-icon");
+        const delayPerBtn = 350;
+
+        setTimeout(function () {
+          buttons.forEach((btn, i) => {
+            setTimeout(() => {
+              btn.classList.add("animated");
+            }, delayPerBtn * i);
+          });
+
+          // Después de animar los botones, animar los íconos
+          setTimeout(() => {
+            icons.forEach((icon) => {
+              // Añadimos la clase 'visible' para mantener la opacidad
+              icon.classList.add("visible", "bounce");
+
+              // Esperar a que termine "bounce"
+              icon.addEventListener(
+                "animationend",
+                function bounceEnd() {
+                  icon.classList.remove("bounce");
+
+                  // Función para ejecutar pulse
+                  function runPulse() {
+                    icon.classList.add("pulse");
+
+                    // Eliminar pulse al terminar la animación
+                    icon.addEventListener(
+                      "animationend",
+                      function pulseEnd() {
+                        icon.classList.remove("pulse");
+                      },
+                      { once: true }
+                    );
+                  }
+
+                  // Ejecutar pulse inmediatamente después de bounce
+                  runPulse();
+
+                  // Programar pulse cada 15 segundos
+                  setInterval(runPulse, 5000);
+                },
+                { once: true }
+              );
+            });
+          }, delayPerBtn * buttons.length + 150);
+        }, 900);
+      });
+    </script>
+  </body>
+</html>

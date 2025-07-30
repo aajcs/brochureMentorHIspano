@@ -14,6 +14,7 @@
     />
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/effects.css" />
   </head>
   <body class="bg-gray-100">
     <div class="rotation-message">
@@ -49,13 +50,18 @@
     </div>
     <div class="wrapper">
       <div class="containerMio">
-        <div class="column">
+        <div class="column animate-blinds-down">
           <aside class="left-column">
             <div class="top-section">
               <img
                 src="assets/images/logoMentorHispano.png"
                 alt="Logo Mentor Hispano"
                 class="absolute top-4 right-4 w-60 h-auto z-10 filter drop-shadow-md"
+                style="
+                  opacity: 0;
+                  animation: fadeInScaleUp 1s cubic-bezier(0.4, 0, 0.2, 1) 1s
+                    forwards;
+                "
               />
               <div class="text-right p-6">
                 <h1
@@ -93,10 +99,10 @@
         </div>
         <div class="column">
           <nav
-            class="w-full h-full nav-central shadow-md z-10 relative flex flex-col items-center"
+            class="w-full h-full nav-central shadow-md z-10 relative flex flex-col items-center animate-blinds-up"
           >
             <button class="nav-central-btn" data-target="content-tech">
-              <span class="nav-central-icon">
+              <span class="nav-central-icon animated">
                 <img src="assets/icons/icon-tech.svg" alt="Tecnología" />
               </span>
               <span class="nav-central-text">
@@ -139,7 +145,7 @@
         </div>
         <div class="column">
           <main
-            class="w-full h-full bg-white flex flex-col items-center relative"
+            class="w-full h-full bg-white flex flex-col items-center relative animate-blinds-down"
           >
             <div
               class="carousel-container p-10 flex flex-col items-center justify-center"
@@ -379,6 +385,128 @@
       }
       window.addEventListener("resize", scaleMainContainer);
       window.addEventListener("DOMContentLoaded", scaleMainContainer);
+    </script>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          document.querySelector(".top-section").classList.add("show-bg");
+          setTimeout(function () {
+            document
+              .querySelector(".bottom-section")
+              .classList.add("show-bottom");
+            document
+              .querySelector(".carousel-container")
+              .classList.add("animated");
+            document
+              .querySelector(".bottom-logo-section")
+              .classList.add("animated");
+          }, 200); // espera a que termine la animación del fondo
+          setTimeout(function () {
+            document
+              .querySelector(".carousel-images")
+              .classList.add("animated");
+          }, 400); // espera a que termine la animación del fondo
+        }, 700);
+      });
+    </script>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".nav-central-btn");
+        const icons = document.querySelectorAll(".nav-central-icon");
+        const iconsSocial = document.querySelectorAll(".social-icon");
+        const delayPerBtn = 350;
+
+        setTimeout(function () {
+          buttons.forEach((btn, i) => {
+            setTimeout(() => {
+              btn.classList.add("animated");
+            }, delayPerBtn * i);
+          });
+
+          // Después de animar los botones, animar los íconos
+          setTimeout(() => {
+            icons.forEach((icon) => {
+              // Añadimos la clase 'visible' para mantener la opacidad
+              icon.classList.add("visible", "bounce");
+              document
+                .querySelector(".nav-central-bottom")
+                .classList.add("animated");
+              // Esperar a que termine "bounce"
+              icon.addEventListener(
+                "animationend",
+                function bounceEnd() {
+                  icon.classList.remove("bounce");
+
+                  // Función para ejecutar pulse
+                  function runPulse() {
+                    icon.classList.add("pulse");
+
+                    // Eliminar pulse al terminar la animación
+                    icon.addEventListener(
+                      "animationend",
+                      function pulseEnd() {
+                        icon.classList.remove("pulse");
+                      },
+                      { once: true }
+                    );
+                  }
+                  iconsSocial.forEach((socialIcon) => {
+                    socialIcon.classList.add("pulse");
+                    socialIcon.addEventListener(
+                      "animationend",
+                      function pulseEnd() {
+                        socialIcon.classList.remove("pulse");
+                      },
+                      { once: true }
+                    );
+                  });
+                  // Ejecutar pulse inmediatamente después de bounce
+                  runPulse();
+
+                  // Programar pulse cada 15 segundos
+                  setInterval(runPulse, 5000);
+                },
+                { once: true }
+              );
+            });
+            iconsSocial.forEach((icon) => {
+              // Añadimos la clase 'visible' para mantener la opacidad
+              icon.classList.add("visible", "bounce");
+              document
+                .querySelector(".nav-central-bottom")
+                .classList.add("animated");
+              // Esperar a que termine "bounce"
+              icon.addEventListener(
+                "animationend",
+                function bounceEnd() {
+                  icon.classList.remove("bounce");
+
+                  // Función para ejecutar pulse
+                  function runPulse() {
+                    icon.classList.add("pulse");
+
+                    // Eliminar pulse al terminar la animación
+                    icon.addEventListener(
+                      "animationend",
+                      function pulseEnd() {
+                        icon.classList.remove("pulse");
+                      },
+                      { once: true }
+                    );
+                  }
+
+                  // Ejecutar pulse inmediatamente después de bounce
+                  runPulse();
+
+                  // Programar pulse cada 15 segundos
+                  setInterval(runPulse, 5000);
+                },
+                { once: true }
+              );
+            });
+          }, delayPerBtn * buttons.length + 150);
+        }, 900);
+      });
     </script>
   </body>
 </html>

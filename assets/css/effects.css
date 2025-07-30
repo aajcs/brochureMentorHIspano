@@ -1,0 +1,365 @@
+/* Animación de persiana: de arriba hacia abajo */
+@keyframes blinds-down {
+  0% {
+    transform: scaleY(0.1);
+    transform-origin: top;
+    opacity: 0.2;
+    filter: blur(3px) brightness(1.1);
+  }
+  40% {
+    opacity: 0.7;
+    filter: blur(1.5px) brightness(1.03);
+  }
+  80% {
+    opacity: 1;
+    filter: blur(0.5px) brightness(1);
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+    filter: blur(0) brightness(1);
+  }
+}
+
+@keyframes blinds-up {
+  0% {
+    transform: scaleY(0.1);
+    transform-origin: bottom;
+    opacity: 0.2;
+    filter: blur(3px) brightness(1.1);
+  }
+  40% {
+    opacity: 0.7;
+    filter: blur(1.5px) brightness(1.03);
+  }
+  80% {
+    opacity: 1;
+    filter: blur(0.5px) brightness(1);
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+    opacity: 1;
+    filter: blur(0) brightness(1);
+  }
+}
+
+.animate-blinds-down {
+  animation: blinds-down 1.1s cubic-bezier(0.77, 0, 0.18, 1);
+  transform-origin: top;
+  will-change: transform, opacity, filter;
+}
+.animate-blinds-up {
+  animation: blinds-up 1.1s cubic-bezier(0.77, 0, 0.18, 1);
+  transform-origin: bottom;
+  will-change: transform, opacity, filter;
+}
+/* Archivo para efectos y transiciones personalizados */
+
+/* Transición suave para opacidad y transform */
+.effect-fade {
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.effect-scale {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.effect-slide-up {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.effect-shadow {
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animaciones keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Utilidades para usar animaciones */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+@keyframes fadeInScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes navBtnFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.nav-central-btn {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  /* Para evitar parpadeo antes de animar */
+}
+
+.nav-central-btn.animated {
+  animation: navBtnFadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-central-icon {
+  opacity: 0;
+  /* transition: opacity 0.2s; */
+}
+.nav-central-icon.visible {
+  opacity: 1;
+}
+.nav-central-icon.bounce {
+  animation: iconBounceIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-central-icon.pulse {
+  animation: iconPulse 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.social-icon.pulse {
+  animation: iconPulse 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-central-icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.18);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s;
+}
+@keyframes iconBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+  45% {
+    transform: scale(0.85);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  75% {
+    transform: scale(0.95);
+  }
+  85% {
+    transform: scale(1.05);
+  }
+  92% {
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.18);
+  }
+  40% {
+    transform: scale(0.96);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  80% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Persiana para el contenedor */
+@keyframes blindsIn {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scaleY(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+.nav-central-bottom {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+.nav-central-bottom.animated {
+  animation: blindsIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Zoom y rebote para el logo */
+@keyframes logoZoomBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  60% {
+    transform: scale(0.92);
+  }
+  80% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.nav-central-bottom .w-16 {
+  opacity: 0;
+}
+.nav-central-bottom.animated .w-16 {
+  animation: logoZoomBounce 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Entrada suave para el texto */
+@keyframes fadeInUpText {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.nav-central-bottom p {
+  opacity: 0;
+}
+.nav-central-bottom.animated p {
+  animation: fadeInUpText 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+@keyframes carouselFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.carousel-images {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+}
+
+.carousel-images.animated {
+  animation: carouselFadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.carousel-container {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+}
+
+.carousel-container.animated {
+  animation: carouselFadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes bottomLogoFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.85);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bottom-logo-section {
+  opacity: 0;
+  transform: translateY(40px) scale(0.85);
+}
+
+.bottom-logo-section.animated {
+  animation: bottomLogoFadeIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Animación de logo: zoom y rebote */
+@keyframes logoBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.15) rotate(6deg);
+  }
+  60% {
+    transform: scale(0.92) rotate(-4deg);
+  }
+  80% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.bottom-logo-section img {
+  opacity: 0;
+}
+
+.bottom-logo-section.animated img {
+  animation: logoBounceIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+}
